@@ -1,5 +1,4 @@
 import { useRef } from "react" 
-
 import styles from "./ProductForm.module.css" 
 
 const ProductForm = (props) => {
@@ -7,11 +6,8 @@ const ProductForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault() 
-
-    const enteredValue = productInputRef.current.value 
-
-    if (enteredValue.trim().length > 0) {
-      props.onEnterProduct(enteredValue) 
+    if (productInputRef.current.value.trim().length > 0) {
+      props.onEnterProduct(productInputRef.current.value) 
     }
   } 
 
