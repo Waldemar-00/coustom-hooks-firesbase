@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-function useFetch( manageData ) {
+function useFetch() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   
@@ -19,12 +19,12 @@ function useFetch( manageData ) {
           throw new Error("Ошибка запроса.")
         }
         const data = await response.json()
-        manageData(data)
+        options.manageData(data)
       } catch (err) {
         setError(err.message || "Что-то пошло не так...")
       }
     setIsLoading(false)
-  }, [manageData])
+  }, [])
 
   return {
     isLoading,
