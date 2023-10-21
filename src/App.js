@@ -18,8 +18,8 @@ function App() {
     }
     fetchProducts({
       url: "https://custom-hooks-firebase-default-rtdb.firebaseio.com/products.json",
-      manageData
-    })
+      
+    }, manageData)
   }, [ fetchProducts ])
 
   const [reFresh, setReFresh] = useState(true)

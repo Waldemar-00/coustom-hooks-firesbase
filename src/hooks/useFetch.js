@@ -3,7 +3,7 @@ function useFetch() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   
-  const fetchProducts = useCallback(async (options) => {
+  const fetchProducts = useCallback(async (options, manageData) => {
     setIsLoading(true)
     setError(null)
       try {
@@ -19,7 +19,7 @@ function useFetch() {
           throw new Error("Ошибка запроса.")
         }
         const data = await response.json()
-        options.manageData(data)
+        manageData(data)
       } catch (err) {
         setError(err.message || "Что-то пошло не так...")
       }

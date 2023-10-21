@@ -5,17 +5,17 @@ import ProductForm from "./ProductForm"
 const NewProduct = (props) => {
   const { isLoading, error, fetchProducts } = useFetch()
   function createNote( productText, note ) {
-    const generatedId = note.name
-    const createdProduct = {id: generatedId, text: productText}
-    props.onAddProduct(createdProduct) 
+      props.onAddProduct({ id: note.name, text: productText }) 
   }
   const enterProductHandler = async (productText) => {
     fetchProducts({
-      url: "https://custom-hooks-firebase-default-rtdb.firebaseio.com/ products.json", 
+      url: "https://custom-hooks-firebase-default-rtdb.firebaseio.com/products.json", 
       method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: { text: productText },
-      manageData: createNote.bind( null, productText )
-    })
+    }, createNote.bind(null, productText))
   } 
 
   return (
