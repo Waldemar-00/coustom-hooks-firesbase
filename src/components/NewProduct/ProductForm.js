@@ -6,8 +6,11 @@ const ProductForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault() 
-    if (productInputRef.current.value.trim().length > 0) {
-      props.onEnterProduct(productInputRef.current.value) 
+
+    const enteredValue = productInputRef.current.value 
+
+    if (enteredValue.trim().length > 0) {
+      props.onEnterProduct(enteredValue) 
     }
   } 
 

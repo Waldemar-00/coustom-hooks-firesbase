@@ -1,41 +1,21 @@
-import { useState } from "react" 
-
+import useFetch from '../../hooks/useFetch'
 import Section from "../UI/Section" 
 import ProductForm from "./ProductForm" 
 
 const NewProduct = (props) => {
-  const [isLoading, setIsLoading] = useState(false) 
-  const [error, setError] = useState(null) 
-
+  const { isLoading, error, fetchProducts } = useFetch()
+  function createNote( productText, note ) {
+    const generatedId = note.name
+    const createdProduct = {id: generatedId, text: productText}
+    props.onAddProduct(createdProduct) 
+  }
   const enterProductHandler = async (productText) => {
-    setIsLoading(true) 
-    setError(null) 
-    try {
-      const response = await fetch(
-        "https://custom-hooks-firebase-default-rtdb.firebaseio.com/products.json",
-        {
-          method: "POST",
-          body: JSON.stringify({ text: productText }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ) 
-
-      if (!response.ok) {
-        throw new Error("Ошибка запроса.") 
-      }
-
-      const data = await response.json() 
-
-      const generatedId = data.name 
-      const createdProduct = { id: generatedId, text: productText } 
-
-      props.onAddProduct(createdProduct) 
-    } catch (e) {
-      setError(e.message || "Что-то пошло не так...") 
-    }
-    setIsLoading(false) 
+    fetchProducts({
+      url: "https://custom-hooks-firebase-default-rtdb.firebaseio.com/ products.json", 
+      method: "POST",
+      body: { text: productText },
+      manageData: createNote.bind( null, productText )
+    })
   } 
 
   return (
